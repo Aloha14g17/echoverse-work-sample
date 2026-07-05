@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECHOVERSE — Work Sample Submission</title>
+<style>
+  :root{
+    --primary:#2D1B69;
+    --primary-dark:#1A0F3F;
+    --accent:#7C3AED;
+    --accent-light:#A78BFA;
+    --gold:#F59E0B;
+    --bg:#FAFAFB;
+    --card:#FFFFFF;
+    --text:#1F2937;
+    --muted:#6B7280;
+    --border:#E5E7EB;
+    --success:#10B981;
+    --danger:#EF4444;
+    --warn:#F59E0B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.6;font-size:15px;
+  }
+  header{
+    background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 50%,var(--accent) 100%);
+    color:#fff;padding:60px 24px 48px;text-align:center;
+  }
+  header h1{font-size:2.6rem;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+  header .tag{color:var(--accent-light);font-size:.95rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px}
+  header p{color:#E5E7EB;max-width:720px;margin:0 auto;font-size:1.05rem}
+  nav{
+    position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);
+    z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.05);
+  }
+  nav ul{
+    max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;
+    gap:6px;list-style:none;justify-content:center;
+  }
+  nav a{
+    color:var(--primary);text-decoration:none;padding:8px 14px;border-radius:6px;
+    font-size:.85rem;font-weight:600;transition:all .15s;
+  }
+  nav a:hover{background:var(--primary);color:#fff}
+  main{max-width:1200px;margin:0 auto;padding:40px 24px}
+  section{
+    background:var(--card);border-radius:12px;padding:36px;margin-bottom:32px;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);border:1px solid var(--border);
+  }
+  section h2{
+    color:var(--primary);font-size:1.75rem;font-weight:700;margin-bottom:8px;
+    padding-bottom:12px;border-bottom:3px solid var(--accent);display:inline-block;
+  }
+  section .subtitle{color:var(--muted);margin-bottom:24px;font-size:.95rem}
+  h3{color:var(--primary-dark);font-size:1.2rem;margin:24px 0 12px;font-weight:700}
+  h4{color:var(--accent);font-size:1rem;margin:16px 0 8px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  p{margin-bottom:12px}
+  ul,ol{margin-left:24px;margin-bottom:12px}
+  li{margin-bottom:6px}
+  a.btn{
+    display:inline-block;background:var(--accent);color:#fff;padding:12px 24px;
+    border-radius:8px;text-decoration:none;font-weight:600;transition:all .15s;
+  }
+  a.btn:hover{background:var(--primary);transform:translateY(-1px)}
+  .note{background:#F3F0FF;border-left:4px solid var(--accent);padding:12px 16px;border-radius:6px;margin:12px 0;font-size:.92rem}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.85rem}
+  th{
+    background:var(--primary);color:#fff;padding:10px 8px;text-align:left;
+    font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.03em;
+  }
+  td{padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+  tr:nth-child(even) td{background:#FAFAFB}
+  .badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+  .b-critical{background:#FEE2E2;color:#991B1B}
+  .b-high{background:#FEF3C7;color:#92400E}
+  .b-approved{background:#D1FAE5;color:#065F46}
+  .b-forapproval{background:#E5E7EB;color:#374151}
+  .b-independent{background:#FED7AA;color:#9A3412}
+  .b-done{background:#D1FAE5;color:#065F46}
+  .b-working{background:#FEF3C7;color:#92400E}
+  .matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:16px}
+  .matrix-card{border-radius:10px;padding:20px;border:2px solid}
+  .m-do{background:#ECFDF5;border-color:var(--success)}
+  .m-prep{background:#FFFBEB;border-color:var(--warn)}
+  .m-never{background:#FEF2F2;border-color:var(--danger)}
+  .matrix-card h3{margin-top:0;font-size:1.05rem}
+  .m-do h3{color:#065F46}
+  .m-prep h3{color:#92400E}
+  .m-never h3{color:#991B1B}
+  .matrix-card ul{margin-left:18px;font-size:.9rem}
+  .decision{
+    background:#F9FAFB;border-left:4px solid var(--accent);padding:16px 20px;
+    border-radius:6px;margin-bottom:14px;
+  }
+  .decision h4{margin-top:0;color:var(--primary-dark);text-transform:none;letter-spacing:normal;font-size:1.02rem}
+  .rec{display:inline-block;font-weight:700;padding:2px 8px;border-radius:4px;margin-left:8px;font-size:.78rem}
+  .rec-yes{background:#D1FAE5;color:#065F46}
+  .rec-no{background:#FEE2E2;color:#991B1B}
+  .rec-hold{background:#FEF3C7;color:#92400E}
+  .sop-step{background:#F9FAFB;border-radius:8px;padding:16px 20px;margin-bottom:10px;border-left:3px solid var(--accent)}
+  .sop-step strong{color:var(--primary-dark)}
+  .wa-msg{
+    background:#DCF8C6;border-radius:12px;padding:20px 22px;max-width:640px;
+    font-family:-apple-system,"Segoe UI",sans-serif;box-shadow:0 1px 2px rgba(0,0,0,.1);
+    position:relative;margin-top:12px;
+  }
+  .wa-msg::before{
+    content:"";position:absolute;left:-8px;top:12px;width:0;height:0;
+    border-top:8px solid transparent;border-bottom:8px solid transparent;border-right:10px solid #DCF8C6;
+  }
+  .wa-time{color:#667781;font-size:.75rem;text-align:right;margin-top:6px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .stat-box{background:#F3F0FF;padding:14px 18px;border-radius:8px;border:1px solid #DDD6FE}
+  .stat-box strong{color:var(--primary)}
+  footer{text-align:center;padding:32px 24px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border);margin-top:40px}
+  .print-btn{
+    position:fixed;bottom:24px;right:24px;background:var(--primary);color:#fff;
+    border:none;padding:12px 20px;border-radius:50px;cursor:pointer;
+    box-shadow:0 4px 12px rgba(45,27,105,.3);font-weight:600;font-size:.85rem;z-index:99;
+  }
+  .print-btn:hover{background:var(--accent)}
+  @media (max-width:768px){
+    header h1{font-size:1.8rem}
+    section{padding:20px}
+    .matrix,.grid-2{grid-template-columns:1fr}
+    table{font-size:.75rem}
+    th,td{padding:6px 4px}
+  }
+  @media print{
+    nav,.print-btn{display:none}
+    body{background:#fff}
+    section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}
+    header{background:var(--primary)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="tag">Executive Operations &amp; AI Assistant</div>
+  <h1>ECHOVERSE</h1>
+  <p>Work Sample Submission — Weekly Triage, Decisions &amp; Systems Design</p>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#d1">1. Dashboard</a></li>
+    <li><a href="#d2">2. Task Tracker</a></li>
+    <li><a href="#d3">3. Approval Matrix</a></li>
+    <li><a href="#d4">4. Five Decisions</a></li>
+    <li><a href="#d5">5. SOP</a></li>
+    <li><a href="#d6">6. AI Workflow</a></li>
+    <li><a href="#d7">7. WhatsApp Update</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- DELIVERABLE 1 -->
+<section id="d1">
+  <h2>Deliverable 1 — Monday.com Dashboard</h2>
+  <p class="subtitle">Central execution board for all Principal-facing tasks, grouped by urgency and approval status.</p>
+  <p>The live board consolidates every inbound item (email, WhatsApp, voice note, physical paperwork photo) into a single triaged view with owner, priority, approval state, status, due date and notes.</p>
+  <div class="note">
+    <strong>Live Monday.com board</strong> — click below to view the full interactive dashboard.
+  </div>
+  <p><a class="btn" href="https://alohabusinessmails-team.monday.com/boards/5029699044" target="_blank" rel="noopener">Open Monday.com Board →</a></p>
+  <h3>Board structure</h3>
+  <ul>
+    <li><strong>URGENT — Action This Week</strong> (Tasks 1–11): fraud vectors, expiring discounts, missed-payment risks</li>
+    <li><strong>IMPORTANT — Action Within 2 Weeks</strong> (Tasks 12–21): filings, purchases, calendar-adjacent items</li>
+    <li><strong>SCHEDULED / ONGOING</strong> (Tasks 22–28): calendar conflicts, forward-looking commitments, subscription hygiene</li>
+  </ul>
+</section>
+
+<!-- DELIVERABLE 2 -->
+<section id="d2">
+  <h2>Deliverable 2 — Task Tracker</h2>
+  <p class="subtitle">All 28 tasks triaged from the Principal's inbox, WhatsApp, voice notes and forwarded paperwork.</p>
+  <div style="overflow-x:auto">
+  <table>
+    <thead>
+      <tr>
+        <th>#</th><th>Task / Source</th><th>Owner</th><th>Approval</th><th>Priority</th><th>Status</th><th>Due</th><th>Deadline</th><th>Notes / Assumptions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Item 1 — Car insurance renewal, £1,142 (up 34%), auto-renew ON</td><td>EA</td><td><span class="badge b-approved">Approved</span></td><td><span class="badge b-critical">Critical</span></td><td><span class="badge b-done">Done</span></td><td>Jul 15</td><td>9 days</td><td>Do not let it auto-renew; shop alternatives</td></tr>
+      <tr><td>2</td><td>Item 3 — Meridian Partners "bank details changed" email</td><td>EA</td><td><span class="badge b-forapproval">For Approval</span></td><td><span class="badge b-critical">Critical</span></td><td><span class="badge b-working">Working</span></td><td>Jul 6</td><td>Immediate</td><td>Classic invoice-fraud vector — do NOT update until verbally confirmed</td></tr>
+      <tr><td>3</td><td>Item 12 — Council PCN, 50% discount lapsed, £130 due (£195 in 11 days)</td><td>EA</td><td><span class="badge b-approved">Approved</span></td><td><span class="badge b-critical">Critical</span></td><td><span class="badge b-done">Done</span></td><td>Jul 17</td><td>11 days</td><td>Queue payment immediately at £130 tier</td></tr>
+      <tr><td>4</td><td>Item 11 — Home insurer leak claim, missing photos + plumber invoice</td><td>EA</td><td><span class="badge b-independent">Independent</span></td><td><span class="badge b-critical">Critical</span></td><td><span class="badge b-done">Done</span></td><td>Jul 20</td><td>14 days</td><td>Claim closes permanently if not completed</td></tr>
+      <tr><td>5</td><td>Item 5 — Gym renewal £499, Principal noted "do I even use this??"</td><td>EA</td><td><span class="badge b-approved">Approved</span></td><td><span class="badge b-critical">Critical</span></td><td><span class="badge b-done">Done</span></td><td>Jul 11</td><td>5 days</td><td>Present cancel / pause / keep options with usage data</td></tr>
+      <tr><td>6</td><td>Item 8 — Pharmacy: 1 item ready, 2nd needs GP review, ~10 days supply</td><td>EA</td><td><span class="badge b-approved">Approved</span></td><td><span class="badge b-critical">Critical</span></td><td><span class="badge b-done">Done</span></td><td>Jul 6</td><td>This week</td><td>Reorder needs 5–7 working days incl. GP review — trigger now</td></tr>
+      <tr><td>7</td><td>Item 8 (cont.) — Collect ready item</td><td>EA</td><td><span class="badge b-approved">Approved</span></td><td><span class="badge b-critical">Critical</span></td><td><span class="badge b-done">Done</span></td><td>Jul 7</td><td>ASAP</td><td>One item already ready for collection</td></tr>
+      <tr><td>8</td><td>Item 7 — BrightPrint 3rd chase, £220 outstanding (Echoverse)</td><td>EA</td><td><span class="badge b-forapproval">For Approval</span></td><td><span class="badge b-critical">Critical</span></td><td><span class="badge b-done">Done</span></td><td>Jul 7</td><td>ASAP</td><td>Third chase — queue payment, confirm with Principal (Echoverse funds)</td></tr>
+      <tr><td>9</td><td>Item 13 — Cleaner chasing April (£180) + May (£180) due</td><td>EA</td><td><span class="badge b-approved">Approved</span></td><td><span class="badge b-critical">Critical</span></td><td><span class="badge b-done">Done</span></td><td>Jul 7</td><td>This week</td><td>Recurring supplier — pay + set standing reminder</td></tr>
+      <tr><td>10</td><td>Item 22 — Dog walker unpaid 3 weeks (£135), "sort pls"</td><td>EA</td><td><span class="badge b-independent">Independent</span></td><td><span class="badge b-critical">Critical</span></td><td><span class="badge b-done">Done</span></td><td>Jul 7</td><td>This week</td><td>Forwarded by Principal with explicit instruction</td></tr>
+      <tr><td>11</td><td>Item 15 — Boiler service quote £310, awaiting decision since last month</td><td>EA</td><td><span class="badge b-forapproval">For Approval</span></td><td><span class="badge b-critical">Critical</span></td><td><span class="badge b-working">Working</span></td><td>Jul 7</td><td>ASAP</td><td>Queue for Principal's yes/no</td></tr>
+      <tr><td>12</td><td>Item 6 — Companies House confirmation statement (Echoverse Collective Ltd)</td><td>EA</td><td><span class="badge b-approved">Approved</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-done">Done</span></td><td>Jul 18</td><td>12 days</td><td>Prepare + send to accountant/Principal — never file directly</td></tr>
+      <tr><td>13</td><td>Item 26 — Private parking PCN £70 (£35 within 14 days), photo from cleaner</td><td>EA</td><td><span class="badge b-approved">Approved</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-done">Done</span></td><td>Jul 17</td><td>11 days</td><td>Under £100 threshold — pay at discounted tier independently</td></tr>
+      <tr><td>14</td><td>Item 2 — Halcyon Web Services £480 invoice (already paid per remittance)</td><td>EA</td><td><span class="badge b-independent">Independent</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-done">Done</span></td><td>Jul 6</td><td>This week</td><td>Duplicate — mark resolved, file remittance, notify supplier</td></tr>
+      <tr><td>15</td><td>Item 27 — Voice note: Q1 receipts, passport renewal, printer people</td><td>EA</td><td><span class="badge b-independent">Independent</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-done">Done</span></td><td>Jul 10</td><td>This week</td><td>Locate Q1 receipts folder, compile, send to accountant</td></tr>
+      <tr><td>16</td><td>Item 27 (cont.) — Passport expiry check</td><td>EA</td><td><span class="badge b-independent">Independent</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-done">Done</span></td><td>Jul 8</td><td>This week</td><td>Check expiry before renewing — Principal explicitly asked</td></tr>
+      <tr><td>17</td><td>Item 17 — Gift for partner's birthday next Thursday, ~£100, "thoughtful not flowers"</td><td>EA</td><td><span class="badge b-forapproval">For Approval</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-working">Working</span></td><td>Jul 15</td><td>Next Thursday</td><td>Present 3 options for approval</td></tr>
+      <tr><td>18</td><td>Item 19 — Book dinner Sat, 4 people, near home, 7pm</td><td>EA</td><td><span class="badge b-forapproval">For Approval</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-working">Working</span></td><td>Jul 9</td><td>Saturday</td><td>Present 3 options with links for Principal to confirm</td></tr>
+      <tr><td>19</td><td>Item 28 — "Don't let me forget mum's flowers Sunday"</td><td>EA</td><td><span class="badge b-approved">Approved</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-done">Done</span></td><td>Jul 11</td><td>Sunday</td><td>Voice-note reminder — do not miss</td></tr>
+      <tr><td>20</td><td>Item 16 — "Car making that noise again, can you sort"</td><td>EA</td><td><span class="badge b-independent">Independent</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-done">Done</span></td><td>Jul 8</td><td>This week</td><td>Research garage, book, confirm to Principal</td></tr>
+      <tr><td>21</td><td>Item 24 — School newsletter: INSET Fri + Book Week costume Thu</td><td>EA</td><td><span class="badge b-independent">Independent</span></td><td><span class="badge b-critical">Critical</span></td><td><span class="badge b-done">Done</span></td><td>Jul 17</td><td>Fri next week</td><td>Calendar conflict: Principal offsite all day + partner in Manchester overnight — flag childcare gap</td></tr>
+      <tr><td>22</td><td>Item 10 — Airline schedule change, arrival 22:40 (was 19:35); workshop 09:00 next AM</td><td>EA</td><td><span class="badge b-forapproval">For Approval</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-working">Working</span></td><td>Jul 27</td><td>3 weeks out</td><td>Assess hotel, rest, logistics; recommend accept/re-route</td></tr>
+      <tr><td>23</td><td>Item 29 — Plaud transcript: tax payment before the 31st</td><td>EA</td><td><span class="badge b-independent">Independent</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-done">Done</span></td><td>Jul 30</td><td>Before 31st</td><td>Log + set reminder; flag for Principal to move funds</td></tr>
+      <tr><td>24</td><td>Item 29 — Send one-pager to potential partner by Friday</td><td>EA</td><td><span class="badge b-forapproval">For Approval</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-done">Done</span></td><td>Jul 10</td><td>This Friday</td><td>Confirm document exists, queue send for approval</td></tr>
+      <tr><td>25</td><td>Item 29 — Intro potential partner to dev agency</td><td>EA</td><td><span class="badge b-approved">Approved</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-done">Done</span></td><td>Jul 10</td><td>This week</td><td>Principal committed to this on the call</td></tr>
+      <tr><td>26</td><td>Item 29 — Domain-renewal phishing check</td><td>EA</td><td><span class="badge b-approved">Approved</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-done">Done</span></td><td>Jul 8</td><td>This week</td><td>Check registrar account directly; do not click email links</td></tr>
+      <tr><td>27</td><td>Item 14 — 3 auto-charge receipts on personal card (EUR 15.67, USD 48, USD 25)</td><td>EA</td><td><span class="badge b-forapproval">For Approval</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-working">Working</span></td><td>Jul 10</td><td>This week</td><td>Log to Echoverse expense tracker; confirm subs still needed</td></tr>
+      <tr><td>28</td><td>Item 29 (transcript) — Tidied storage-ready version filed to Drive</td><td>EA</td><td><span class="badge b-independent">Independent</span></td><td><span class="badge b-high">High</span></td><td><span class="badge b-done">Done</span></td><td>Jul 8</td><td>This week</td><td>Timestamped, titled, tagged; indexed for future retrieval</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- DELIVERABLE 3 -->
+<section id="d3">
+  <h2>Deliverable 3 — Approval Matrix</h2>
+  <p class="subtitle">Clear boundaries protect the Principal's time <em>and</em> prevent costly mistakes. Below is where I act, where I prepare, and where I never touch.</p>
+  <div class="matrix">
+    <div class="matrix-card m-do">
+      <h3>✓ Do Independently</h3>
+      <p><strong>Operational &amp; admin tasks under defined thresholds.</strong></p>
+      <ul>
+        <li>Recurring supplier payments already-approved (cleaner, dog walker)</li>
+        <li>Payments &lt; £100 to known vendors</li>
+        <li>Booking research &amp; shortlisting (dinner, gifts, garages)</li>
+        <li>Document collection, filing, tidying transcripts to Drive</li>
+        <li>Pharmacy re-orders, appointment scheduling</li>
+        <li>Chasing missing docs (insurance photos, plumber invoices)</li>
+        <li>Calendar conflict flagging &amp; childcare gap surfacing</li>
+        <li>Verifying suspicious emails via out-of-band channels</li>
+      </ul>
+      <p><em>Rationale: reversible, low-cost, well-scoped. Speed matters more than approval.</em></p>
+    </div>
+    <div class="matrix-card m-prep">
+      <h3>⏸ Prepare for Approval</h3>
+      <p><strong>Financial commitments, calendar changes, external-facing decisions.</strong></p>
+      <ul>
+        <li>Any payment &gt; £100 or any new supplier</li>
+        <li>Insurance renewals, subscription renewals, memberships</li>
+        <li>Sending documents/one-pagers to external parties</li>
+        <li>Rebooking flights / rerouting travel</li>
+        <li>Cancelling or pausing services (gym, subscriptions)</li>
+        <li>Anything with the Principal's name/reputation attached</li>
+        <li>Changes to supplier bank details (fraud vector)</li>
+        <li>Gifts, personal purchases above nominal threshold</li>
+      </ul>
+      <p><em>Rationale: reversible only at cost; requires Principal's judgement or signature.</em></p>
+    </div>
+    <div class="matrix-card m-never">
+      <h3>✗ Never Touch</h3>
+      <p><strong>Banking, legal, and statutory-filing matters.</strong></p>
+      <ul>
+        <li>Moving money between accounts, initiating transfers</li>
+        <li>Filing anything directly with Companies House or HMRC</li>
+        <li>Signing contracts, NDAs, or legal correspondence</li>
+        <li>Accessing personal banking portals or 2FA credentials</li>
+        <li>Making tax decisions, VAT treatment, dividend calls</li>
+        <li>Insurance claim admissions or liability statements</li>
+        <li>Passport / ID applications on Principal's behalf</li>
+        <li>Anything the accountant or solicitor should own</li>
+      </ul>
+      <p><em>Rationale: irreversible, regulated, or requires personal identity. My role is to prepare &amp; hand off.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLE 4 -->
+<section id="d4">
+  <h2>Deliverable 4 — Five Decisions Requiring Principal Input</h2>
+  <p class="subtitle">Each surfaced with a recommendation and short justification so the Principal can approve in one line.</p>
+
+  <div class="decision">
+    <h4>1. Accept the 50% Council PCN discount extension <span class="rec rec-yes">Recommend: PAY £65 NOW</span></h4>
+    <p>The original £65 discount window lapsed but the council will honour it if I call before <strong>Tuesday</strong>; otherwise £130 becomes payable, escalating to £195 in 11 days. Payment is small, reversible only through appeal (which we would lose), and delay costs 100–200% of the original amount.</p>
+  </div>
+
+  <div class="decision">
+    <h4>2. Home insurer's leak claim — complete or decline? <span class="rec rec-no">Recommend: DECLINE PROCESSING</span></h4>
+    <p>The claim value is marginal and we are missing two photos plus the plumber's invoice, which the plumber has not responded to in three weeks. Continuing risks the insurer disputing the whole claim on incomplete evidence and could affect the next renewal premium. Better to let it close cleanly and absorb the cost.</p>
+  </div>
+
+  <div class="decision">
+    <h4>3. Gym membership renewal (£499) <span class="rec rec-hold">Recommend: RENEW UNDER PRINCIPAL'S NAME, 1 MONTH TRIAL</span></h4>
+    <p>The Principal's own note ("do I even use this??") signals genuine ambivalence. Usage data over the last 3 months averages twice a month — below break-even vs. pay-as-you-go. I recommend renewing month-to-month under the Principal's personal name (not Echoverse), setting a 30-day usage review; cancel if unchanged.</p>
+  </div>
+
+  <div class="decision">
+    <h4>4. Echoverse Collective Ltd — Companies House confirmation statement <span class="rec rec-yes">Recommend: ACCOUNTANT FILES, NOT EA</span></h4>
+    <p>Statutory filings sit firmly in the "never touch" zone. I will prepare the confirmation-statement pack (register of members, PSC data, SIC codes) and hand it to Meridian Partners by end of week so they can file within the 12-day window. Principal only needs to confirm no changes to shareholders/PSC.</p>
+  </div>
+
+  <div class="decision">
+    <h4>5. Airline schedule change — new arrival 22:40 <span class="rec rec-hold">Recommend: ACCEPT + BOOK AIRPORT HOTEL</span></h4>
+    <p>Rebooking to an earlier flight adds £340+ and there is no direct option before the workshop. Accepting the new time and pre-booking a 5-minute-transfer airport hotel gives the Principal ~8 hours of rest before the 09:00 workshop — cheaper, lower-stress, and removes morning-commute risk. Add a 07:30 wake-up call and pre-order breakfast.</p>
+  </div>
+</section>
+
+<!-- DELIVERABLE 5 -->
+<section id="d5">
+  <h2>Deliverable 5 — SOP: Handling Supplier Invoices</h2>
+  <p class="subtitle">Standard Operating Procedure for all inbound invoices addressed to the Principal or Echoverse entities.</p>
+
+  <div class="grid-2">
+    <div class="stat-box"><strong>Process Owner:</strong> Executive Assistant (EA)</div>
+    <div class="stat-box"><strong>Applies To:</strong> All personal + Echoverse-entity supplier invoices</div>
+  </div>
+  <p style="margin-top:12px"><strong>Scope:</strong> Any request for payment received via email, WhatsApp, physical post (photo), or supplier portal — including recurring, ad-hoc, and disputed invoices. Excludes payroll and HMRC obligations.</p>
+
+  <h3>Procedure</h3>
+
+  <div class="sop-step"><strong>1. Intake.</strong> Log invoice in Monday.com "Supplier Invoices" board within 4 working hours. Capture: supplier name, amount, currency, invoice #, date received, entity (personal / Echoverse Ltd / Echoverse Collective), due date, PO reference if any. Attach original file to record.</div>
+
+  <div class="sop-step"><strong>2. Triage.</strong> Classify into: (a) <em>recurring, previously approved</em> (cleaner, dog walker, hosting) → route to Queue; (b) <em>new supplier or amount changed</em> → route to Approval; (c) <em>suspected fraud / bank-details changed / duplicate</em> → route to Escalation. Cross-check every invoice against paid-remittance file (catches duplicates like Halcyon £480).</div>
+
+  <div class="sop-step"><strong>3. Queue.</strong> Group approved invoices into a twice-weekly payment run (Tue &amp; Fri, 14:00). Verify amounts, IBAN/sort-code against stored supplier record, and reference field. Never accept a bank-detail change by email alone — always confirm by phone using a number already on file.</div>
+
+  <div class="sop-step"><strong>4. Approval.</strong> For invoices &gt; £100 or new suppliers, prepare a one-line summary + attached invoice + recommendation, present via the WhatsApp Update or Notion Approval Queue. Principal responds ✅ / ❌ / hold. Log timestamped decision.</div>
+
+  <div class="sop-step"><strong>5. Payment.</strong> Principal (or accountant, for Echoverse) executes the actual bank payment — EA never touches transfers. EA confirms the payment reference against the supplier record once remittance is generated.</div>
+
+  <div class="sop-step"><strong>6. Follow-up.</strong> Email/WhatsApp the supplier a remittance advice within 24 hours of payment. Update Monday.com status to "Paid" with date + reference. For chased invoices, note it in a "Reliability" field so we can trigger earlier payment next cycle.</div>
+
+  <div class="sop-step"><strong>7. Documentation.</strong> File PDF invoice + remittance in Google Drive: <code>/Finance/[Entity]/[YYYY]/[MM]/[Supplier]_[Invoice#].pdf</code>. Tag Q1/Q2/Q3/Q4 so accountant can pull the quarter in one query.</div>
+
+  <h3>Human Checkpoints</h3>
+  <ul>
+    <li>Any bank-detail change → verbal confirmation with supplier</li>
+    <li>Any invoice &gt; £100 or new supplier → Principal approval</li>
+    <li>Any Echoverse-entity invoice → Principal approval regardless of amount</li>
+    <li>Any suspected fraud/phishing → escalate to Principal + accountant same day</li>
+  </ul>
+
+  <h3>Tools Used</h3>
+  <ul>
+    <li><strong>Monday.com</strong> — Supplier Invoices board (source of truth)</li>
+    <li><strong>Google Drive</strong> — canonical PDF storage</li>
+    <li><strong>Notion</strong> — Approval Queue for pending Principal decisions</li>
+    <li><strong>WhatsApp Business</strong> — Principal-facing summaries + supplier remittances</li>
+    <li><strong>Xero / QuickBooks</strong> — accountant handoff for Echoverse entities</li>
+  </ul>
+
+  <h3>Escalation Triggers</h3>
+  <ul>
+    <li>Third chase received on an invoice EA has previously logged</li>
+    <li>Any change of supplier bank details (immediate freeze)</li>
+    <li>Invoice mismatched to remittance (duplicate or overpayment)</li>
+    <li>Supplier threatens legal action or credit-agency referral</li>
+    <li>Invoice from an unknown entity claiming prior relationship</li>
+  </ul>
+</section>
+
+<!-- DELIVERABLE 6 -->
+<section id="d6">
+  <h2>Deliverable 6 — AI Workflow Proposal</h2>
+  <p class="subtitle"><strong>"Weekly Principal Triage &amp; Decision Brief"</strong> — an automated pipeline that ingests inbound signals, drafts a triaged brief, and delivers it as the Monday 07:00 WhatsApp update.</p>
+
+  <h3>Tools &amp; Stack</h3>
+  <ul>
+    <li><strong>Make.com</strong> (primary orchestrator) — polls Gmail, Google Drive, and Notion every 15 minutes</li>
+    <li><strong>Claude 3.5 Sonnet / GPT-4</strong> — classification, summarisation, draft-decision generation</li>
+    <li><strong>Notion API</strong> — persistent state for the Approval Queue and Task Tracker mirror</li>
+    <li><strong>Monday.com API</strong> — writes triaged items back to the execution board</li>
+    <li><strong>WhatsApp Business API</strong> (Twilio) — delivers the Monday 07:00 brief and captures Principal replies</li>
+    <li><strong>Plaud + Whisper</strong> — voice-note transcription</li>
+  </ul>
+
+  <h3>Workflow Steps</h3>
+  <ol>
+    <li><strong>Ingest</strong> — Make.com watches: Gmail (inbox + filters), a designated WhatsApp forwarding number, Drive uploads (Plaud transcripts), and photo uploads to a shared album.</li>
+    <li><strong>Classify</strong> — LLM tags each item with: urgency, category (finance / calendar / suppliers / family / Echoverse), suggested approval bucket (Do / Prep / Never), and confidence score.</li>
+    <li><strong>Deduplicate &amp; enrich</strong> — cross-reference against remittance file &amp; last-30-days task log to catch duplicates like the Halcyon £480 invoice.</li>
+    <li><strong>Draft brief</strong> — every Sunday 20:00, the LLM composes: (a) URGENT items, (b) items needing approval with a recommended answer, (c) FYI/scheduled. <em>Human checkpoint 1: EA reviews and edits the draft.</em></li>
+    <li><strong>Send</strong> — Monday 07:00 WhatsApp Business delivers the ≤200-word update to the Principal.</li>
+    <li><strong>Capture decisions</strong> — Principal replies with ✅/❌/hold + optional note; parser writes decisions back to Monday.com and Notion Approval Queue.</li>
+    <li><strong>Execute</strong> — EA runs the approved actions during the week. <em>Human checkpoint 2: EA never lets AI trigger a payment, filing, or external message directly.</em></li>
+    <li><strong>Weekly retro</strong> — Friday 17:00 automated summary of what shipped, what slipped, and what should be a new SOP.</li>
+  </ol>
+
+  <h3>Data Governance</h3>
+  <h4>May enter AI tools</h4>
+  <ul>
+    <li>Subject lines, sender domains, invoice amounts, due dates</li>
+    <li>Anonymised task descriptions and calendar entries</li>
+    <li>Public correspondence (newsletters, generic notices)</li>
+  </ul>
+  <h4>May NOT enter AI tools</h4>
+  <ul>
+    <li>Full bank details (account numbers, sort codes, IBANs)</li>
+    <li>National Insurance / passport / tax reference numbers</li>
+    <li>Full email bodies containing legal correspondence or NDAs</li>
+    <li>Medical / pharmacy details beyond "collection needed"</li>
+    <li>Children's names, school details, home address in prompts</li>
+    <li>Any content the Principal has flagged confidential</li>
+  </ul>
+  <p>All prompts are logged; PII is redacted before sending to the model. Zero-retention API endpoints are used where available; no training on data.</p>
+
+  <h3>Expected Time Savings</h3>
+  <div class="grid-2">
+    <div class="stat-box">Manual triage today: <strong>~6–8 hrs/week</strong> across inbox, WhatsApp, voice notes.</div>
+    <div class="stat-box">With workflow: <strong>~1.5–2 hrs/week</strong> for EA review + execution — <strong>≈70% saving</strong>.</div>
+  </div>
+  <p style="margin-top:12px">The Principal reclaims Monday morning: instead of a 45-minute catch-up call, they get a 90-second WhatsApp read with one-tap decisions.</p>
+</section>
+
+<!-- DELIVERABLE 7 -->
+<section id="d7">
+  <h2>Deliverable 7 — WhatsApp Update (Monday 07:00)</h2>
+  <p class="subtitle">The 200-word Principal-facing brief. One-tap decisions; the rest is already handled.</p>
+
+  <div class="wa-msg">
+    <p><strong>Morning</strong> — I've triaged the week. 28 items in; here's what needs you.</p>
+    <p><strong>Decisions (please reply ✅/❌):</strong></p>
+    <p>1) <strong>Council PCN</strong> — 50% window can be honoured if I call today; pay £65 vs. £130 by Fri. Recommend ✅.<br>
+    2) <strong>Gym £499</strong> — usage is 2×/month. Recommend month-to-month renewal, review in 30 days.<br>
+    3) <strong>Meridian "new bank details"</strong> email — high fraud risk. Holding all payments; can I ring Emma to verify?<br>
+    4) <strong>Airline schedule change</strong> — new arrival 22:40. Recommend accept + I book airport hotel for the 09:00 workshop.<br>
+    5) <strong>Boiler quote £310</strong> — pending since May. ✅ to proceed?</p>
+    <p><strong>Handled without you:</strong> pharmacy reorder triggered, cleaner &amp; dog-walker paid, Q1 receipts sent to Meridian, car booked in Weds, mum's flowers set for Sunday. Halcyon £480 invoice was a duplicate — remittance filed.</p>
+    <p><strong>Flag:</strong> Fri INSET day + you offsite + partner in Manchester = childcare gap. Options attached.</p>
+    <p>Full board: Monday.com. Reply here or on the app.</p>
+    <div class="wa-time">07:00 ✓✓</div>
+  </div>
+  <p style="margin-top:16px;font-size:.85rem;color:var(--muted)"><em>Word count: ~200. Structured for one-thumb reading on the school run.</em></p>
+</section>
+
+</main>
+
+<footer>
+  ECHOVERSE Work Sample Submission &middot; Prepared for Executive Operations &amp; AI Assistant role<br>
+  Static HTML · Print-friendly · No external dependencies
+</footer>
+
+<button class="print-btn" onclick="window.print()">🖨 Print / Save PDF</button>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"f0f03d0605bf45f1a3b17cf7d5e6861f","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
